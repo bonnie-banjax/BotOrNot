@@ -1,32 +1,58 @@
-import { useEffect, useState } from "react";
+// import react hooks such as useState that remembers data and useEffect which runs our code at specific times
+import useTelemetry from "../hooks/useTelemetry";
 
-function TelemetryPanel() {
-  const [telemetry, setTelemetry] = useState({});
+function Telemetry() {
+  const telemetry = useTelemetry();
 
-  useEffect(() => {
-    setTelemetry({
-      language: navigator.language,
-      platform: navigator.platform,
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      screenWidth: window.screen.width,
-      screenHeight: window.screen.height,
-      cookiesEnabled: navigator.cookieEnabled,
-    });
-  }, []);
+  if (!telemetry) {
+    return <p>Collecting browser telemetry...</p>;
+  }
 
   return (
-    <div>
+    <section>
       <h2>Browser Telemetry</h2>
 
-      <p>Language: {telemetry.language}</p>
-      <p>Platform: {telemetry.platform}</p>
-      <p>Timezone: {telemetry.timezone}</p>
       <p>
-        Resolution: {telemetry.screenWidth} × {telemetry.screenHeight}
+        <strong>Language:</strong> {telemetry.language}
       </p>
-      <p>Cookies Enabled: {String(telemetry.cookiesEnabled)}</p>
-    </div>
+
+      <p>
+        <strong>Platform:</strong> {telemetry.platform}
+      </p>
+
+      <p>
+        <strong>Timezone:</strong> {telemetry.timezone}
+      </p>
+
+      <p>
+        <strong>Screen resolution:</strong> {telemetry.screenWidth} ×{" "}
+        {telemetry.screenHeight}
+      </p>
+
+      <p>
+        <strong>Cookies enabled:</strong>{" "}
+        {telemetry.cookiesEnabled ? "Yes" : "No"}
+      </p>
+
+      <p>
+        <strong>Online:</strong> {telemetry.online ? "Yes" : "No"}
+      </p>
+
+
+      <p>
+        <strong>Touch points:</strong> {telemetry.touchPoints}
+      </p>
+
+      <p>
+        <strong>WebDriver detected:</strong>{" "}
+        {telemetry.webdriver ? "Yes" : "No"}
+      </p>
+
+      <p>
+        <strong>User agent:</strong> {telemetry.userAgent}
+      </p>
+    </section>
   );
 }
 
-export default TelemetryPanel;
+export default Telemetry;
