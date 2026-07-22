@@ -1,56 +1,30 @@
 // import react hooks such as useState that remembers data and useEffect which runs our code at specific times
-import useTelemetry from "../hooks/useTelemetry";
-
-function Telemetry() {
-  const telemetry = useTelemetry();
-
+function Telemetry({ telemetry }) {
   if (!telemetry) {
-    return <p>Collecting browser telemetry...</p>;
+    return (
+      <section className="detail-panel">
+        <p>Checking browser automation...</p>
+      </section>
+    );
   }
 
   return (
-    <section>
-      <h2>Browser Telemetry</h2>
+    <section className="detail-panel">
+      <span className="panel-number">01</span>
+      <h3>Browser check</h3>
 
       <p>
-        <strong>Language:</strong> {telemetry.language}
+        The browser reports whether it is being controlled by common automation
+        software.
       </p>
 
-      <p>
-        <strong>Platform:</strong> {telemetry.platform}
-      </p>
+      <div className="signal-result">
+        <span>WebDriver</span>
 
-      <p>
-        <strong>Timezone:</strong> {telemetry.timezone}
-      </p>
-
-      <p>
-        <strong>Screen resolution:</strong> {telemetry.screenWidth} ×{" "}
-        {telemetry.screenHeight}
-      </p>
-
-      <p>
-        <strong>Cookies enabled:</strong>{" "}
-        {telemetry.cookiesEnabled ? "Yes" : "No"}
-      </p>
-
-      <p>
-        <strong>Online:</strong> {telemetry.online ? "Yes" : "No"}
-      </p>
-
-
-      <p>
-        <strong>Touch points:</strong> {telemetry.touchPoints}
-      </p>
-
-      <p>
-        <strong>WebDriver detected:</strong>{" "}
-        {telemetry.webdriver ? "Yes" : "No"}
-      </p>
-
-      <p>
-        <strong>User agent:</strong> {telemetry.userAgent}
-      </p>
+        <strong className={telemetry.webdriver ? "warning" : "success"}>
+          {telemetry.webdriver ? "Detected" : "Not detected"}
+        </strong>
+      </div>
     </section>
   );
 }

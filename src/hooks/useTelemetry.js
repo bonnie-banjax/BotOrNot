@@ -7,17 +7,8 @@ function useTelemetry() {
 
   useEffect(() => {
     setTelemetry({
-      language: navigator.language,
-      platform: navigator.platform,
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      screenWidth: window.screen.width,
-      screenHeight: window.screen.height,
-      cookiesEnabled: navigator.cookieEnabled,
-      online: navigator.onLine,
-      userAgent: navigator.userAgent,
-      hardwareConcurrency: navigator.hardwareConcurrency,
-      touchPoints: navigator.maxTouchPoints,
       webdriver: navigator.webdriver,
+      touchPoints: navigator.maxTouchPoints,
     });
   }, []);
 

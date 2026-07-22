@@ -1,16 +1,28 @@
+import RiskPanel from "./components/RiskPanel";
 import Telemetry from "./components/Telemetry";
-// functions only to organize the page. which components belong to which page
+import BehaviorPanel from "./components/BehaviorPanel";
+import useTelemetry from "./hooks/useTelemetry";
+import useBehaviorTracking from "./hooks/useBehaviorTracking";
+
 function App() {
+  const telemetry = useTelemetry();
+  const behavior = useBehaviorTracking();
+
   return (
     <main>
-      <h1>BotOrNot Risk Detection Dashboard</h1>
+      <RiskPanel telemetry={telemetry} behavior={behavior} />
 
-      <p>
-        BotorNot collects browser and behavioral signals to demonstrate how a web
-        application can evaluate whether a session appears human or automated.
-      </p>
+      <section className="details-section">
+        <div className="section-heading">
+          <span>Analysis</span>
+          <h2>BotOrNot Signals</h2>
+        </div>
 
-      <Telemetry />
+        <div className="details-grid">
+          <Telemetry telemetry={telemetry} />
+          <BehaviorPanel behavior={behavior} />
+        </div>
+      </section>
     </main>
   );
 }
