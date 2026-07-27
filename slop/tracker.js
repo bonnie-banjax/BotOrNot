@@ -1,6 +1,20 @@
-// slop/tracker.js
 (function () {
-  const RECEIVER_URL = "http://localhost:5000/api/telemetry";
+
+
+  // const API_BASE = import.meta.env.VITE_API_URL;
+  // const RECEIVER_URL =`${API_BASE}/api/telemetry`;
+
+  // Derives host dynamically from the browser's current location bar
+  const HOSTNAME = window.location.hostname; // e.g., '192.168.4.187'
+  const API_BASE = `http://${HOSTNAME}:5000`;
+  const RECEIVER_URL = `${API_BASE}/api/telemetry`;
+
+  console.log("YOOHOOO [" + RECEIVER_URL + "] YOU THERE?");
+
+
+
+
+
 
   // Interaction Counters
   let clicks = 0;
@@ -302,9 +316,9 @@
     };
 
     const payload = JSON.stringify(dump);
-
+// ORD
     if (navigator.sendBeacon) {
-      const blob = new Blob([payload], { type: "application/json" });
+      const blob = new Blob([payload], { type: "text/plain" }); // "application/json"
       navigator.sendBeacon(RECEIVER_URL, blob);
     } else {
       fetch(RECEIVER_URL, {
@@ -315,6 +329,26 @@
       }).catch((err) => console.error("[SLOP] Transmission failed:", err));
     }
   }
+// END
+
+// ORD
+// let sent = false;
+// if (navigator.sendBeacon) {
+//   const blob = new Blob([payload], { type: "text/plain" });
+//   sent = navigator.sendBeacon(RECEIVER_URL, blob);
+// }
+
+// Fallback to fetch if sendBeacon was missing or failed/overflowed
+// if (!sent) {
+//   fetch(RECEIVER_URL, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: payload,
+//     keepalive: true,
+//   }).catch((err) => console.error("[SLOP] Transmission failed:", err));
+// }
+// END
+
 
   // Load event trigger
   window.addEventListener("load", captureAndDump);

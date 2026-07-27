@@ -79,7 +79,7 @@ app.get("/api/telemetry/latest", async (req, res) => {
       .sort({ "serverMetadata.receivedAt": -1, _id: -1 })
       .limit(10)
       .toArray();
-
+                                                                                console.log(`==INITIATING DUMP==\n\n${JSON.stringify(dumps, null, 2)}\n\n==END OF DUMP==`);
     return res.status(200).json(dumps);
   } catch (err) {
     console.error("[SLOP] Fetch error:", err);

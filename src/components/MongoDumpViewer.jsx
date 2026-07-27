@@ -7,14 +7,24 @@ export default function MongoDumpViewer() {
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [error, setError] = useState(null);
 
+
+//       const API_BASE = import.meta.env.VITE_API_URL;
+//       const RECEIVER_URL =`${API_BASE}/api/telemetry/latest`;
+
+const HOSTNAME = window.location.hostname;
+const API_BASE = `http://${HOSTNAME}:5000`;
+const RECEIVER_URL = `${API_BASE}/api/telemetry/latest`;
+
   // Silently fetches telemetry data without toggling the primary loader UI
   const fetchDumps = async (isInitial = false) => {
     try {
       if (isInitial) setLoading(true);
       else setRefreshing(true);
 
-      const response = await fetch("http://localhost:5000/api/telemetry/latest");
-      if (!response.ok) throw new Error("Failed to fetch database dumps");
+
+
+      const response = await fetch(RECEIVER_URL); // "http://localhost:5000/api/telemetry/latest"
+      if (!response.ok) throw new Error(`Failed to fetch database dumps: ${RECEIVER_URL}`);
       const data = await response.json();
       setDumps(data);
       setError(null);
