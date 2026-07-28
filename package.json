@@ -18,6 +18,8 @@
     "mongodb": "^7.5.0",
     "react": "latest",
     "react-dom": "latest",
+    "rrweb": "^2.1.1",
+    "rrweb-player": "^2.1.1",
     "vite": "^8.1.5"
   }
 }

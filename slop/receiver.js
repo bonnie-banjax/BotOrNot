@@ -14,7 +14,7 @@ let collection;
 
 // Middleware configuration
 app.use(cors());
-app.use(express.text({ type: "application/json", limit: "50mb" }));
+app.use(express.text({ type: ["text/plain", "application/json"], limit: "50mb" }));
 app.use(express.json({ limit: "50mb" }));
 
 // MongoDB Initialization
