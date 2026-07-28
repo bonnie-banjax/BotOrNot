@@ -10,9 +10,6 @@ export default function Navbar({ onNavigate, onOpenTelemetry }) {
             </div>
 
             <ul className="nav-links">
-                <button className="telemetry-trigger-btn" onClick={onOpenTelemetry}>
-                    View Telemetry
-                </button>
                 <li>
                     <a href="#overview" onClick={(e) => { e.preventDefault(); onNavigate?.('overview'); }}>
                         Overview
@@ -29,7 +26,7 @@ export default function Navbar({ onNavigate, onOpenTelemetry }) {
                     </a>
                 </li>
                 <li>
-                    <a href="#dashboard" onClick={(e) => { e.preventDefault(); onNavigate?.('dashboard'); }}>
+                    <a href="#dashboard" onClick={(e) => { e.preventDefault(); onOpenTelemetry?.(); }}>
                         Dashboard
                     </a>
                 </li>

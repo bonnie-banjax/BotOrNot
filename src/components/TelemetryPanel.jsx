@@ -16,7 +16,7 @@ export default function TelemetryPanel({ isOpen, onClose, telemetry, behavior })
           <div>
             <h2>Invasive Telemetry Collection Dashboard</h2>
             <p className="telemetry-panel-subtitle">
-              this is completely normal for websites to collect
+              This is completely normal for websites to collect
             </p>
           </div>
           <button

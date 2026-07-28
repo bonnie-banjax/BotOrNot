@@ -43,22 +43,6 @@ function App() {
         <Playground telemetry={telemetry} behavior={behavior} onNavigate={handleNavigation} />
       </div>
 
-      <main>
-        <RiskPanel telemetry={telemetry} behavior={behavior} />
-
-        <section className="details-section">
-          <div className="section-heading">
-            <span>Analysis</span>
-            <h2>BotOrNot Signals</h2>
-          </div>
-
-          <div className="details-grid">
-            <Telemetry telemetry={telemetry} />
-            <BehaviorPanel behavior={behavior} />
-          </div>
-        </section>
-      </main>
-
       <Footer onNavigate={handleNavigation} />
 
       <TelemetryPanel
