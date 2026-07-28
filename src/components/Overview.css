@@ -1,0 +1,159 @@
+.overview-container {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    gap: 2rem;
+    width: 100%;
+    padding: 0.1rem 3% 1rem;
+    box-sizing: border-box;
+    background: linear-gradient(180deg, #0A1E6F 0%, #0D2790 50%, #1030AE 100%);
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: visible;
+}
+
+/* Who are we styling*/
+.about {
+    flex: 1.2 1 120px;
+    min-width: 280px;
+    min-height: 870px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: var(--Gradient-Backgroud, linear-gradient(180deg, #0B1453 21.67%, #101C68 32.87%, #121B57 45.02%, #131E66 49.17%, #151F65 57.68%, #05081C 80.62%));
+    box-shadow: 10px 10px 50px 10px rgba(0, 0, 0, 0.25);
+    padding: 2.5rem;
+    box-sizing: border-box;
+    margin: 0 -3rem -1rem 0;
+}
+
+.about h2 {
+    color: #FFF;
+
+    /* H1 */
+    font-family: "Inclusive Sans";
+    font-size: 65px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 3rem 0 5rem 0;
+}
+
+.about p {
+    color: #FFF;
+
+    /* H4 */
+    font-family: "Inclusive Sans";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0 0 1.5rem 0;
+}
+
+.about .cyberimg {
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    margin: auto;
+}
+
+/* how it works styling */
+.how-it-works {
+    flex: 1.4 1 120px;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: #092183;
+    box-shadow: 10px 10px 50px 10px rgba(0, 0, 0, 0.25);
+    padding: 2.5rem;
+    box-sizing: border-box;
+    margin: -4rem 0 -4rem 0;
+    z-index: 1;
+
+}
+
+.how-it-works h2 {
+    color: #FFF;
+
+    /* H1 */
+    font-family: "Inclusive Sans";
+    font-size: 65px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.step-row p {
+    color: #FFF;
+
+    /* H3 */
+    font-family: "Inclusive Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+    flex: 1 1 auto;
+}
+
+.step-icon {
+    width: 180px;
+    height: 180px;
+    flex-shrink: 0;
+}
+
+.step-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.step-divider {
+    border: none;
+    border-top: 2px solid white;
+    margin: 2rem 0;
+}
+
+/* Features styling */
+.features-container {
+    display: flex;
+    flex: 1.2 1 120px;
+    flex-direction: column;
+    min-width: 280px;
+    min-height: 870px;
+    box-shadow: 10px 10px 50px 10px rgba(0, 0, 0, 0.25);
+    padding: 2.5rem;
+    background: var(--Gradient-Backgroud, linear-gradient(180deg, #0B1453 21.67%, #101C68 32.87%, #121B57 45.02%, #131E66 49.17%, #151F65 57.68%, #05081C 80.62%));
+    box-sizing: border-box;
+    margin: 0 0 -1rem -3rem;
+}
+
+.features-container h2 {
+    color: #FFF;
+
+    /* H1 */
+    font-family: "Inclusive Sans";
+    font-size: 65px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    list-style: n;
+}
+
+.features-container ol {
+    color: #FFF;
+
+    /* H4 */
+    font-family: "Inclusive Sans";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    white-space: pre-line;
+    margin: 0;
+    list-style-type: decimal;
+
+}

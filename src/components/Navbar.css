@@ -1,0 +1,66 @@
+.navbar{
+    position: fixed;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1.25rem 4 rem;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+
+/* logo styling */
+.nav-icon{
+width: auto;
+height: 10rem;
+aspect-ratio: 1/1;
+object-fit: contain;
+}
+
+.logo{
+    display:flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+}
+
+span{
+color: var(--Secondary-Color, #1B1919);
+font-family: "Intel One Mono";
+font-size: 75px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+/* nav links */
+.nav-links a{
+    display: block;
+    font-size: 45px;
+    font-family: "Inclusive Sans";
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: black;
+    list-style: none;
+    text-decoration: none;
+    padding: 14px 16px;
+    
+}
+
+.nav-links a:hover {
+  background-color: #1338CE;
+}
+
+.nav-links{
+    display:flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+    margin:0; 
+    padding:0;
+}

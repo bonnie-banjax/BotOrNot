@@ -1,0 +1,79 @@
+.hero-container {
+    width: 100%;
+    min-height: 1390px;
+    padding: 5rem 6%;
+    box-sizing: border-box;
+    position: relative;
+    background-repeat: no-repeat;
+
+
+    background-image: linear-gradient(rgba(11, 21, 40, 0.65), rgba(11, 21, 40, 0.65)), url("/images/cyberGlobe.jpeg");
+    background-size: cover;
+    background-position: center right;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.hero-banner-content {
+    width: 100%;
+    max-width: 1250px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.hero-banner-content h1 {
+    color: #FFF;
+    font-family: "Inclusive Sans";
+    font-size: 120px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: left;
+    margin: 0 0 3rem 0;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    max-width: 100%;
+}
+
+.hero-banner-content p {
+    color: #FFF;
+
+    /* H3 */
+    font-family: "Inclusive Sans";
+    font-size: 45px;
+    max-width: 100%;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0 0 3rem 0;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: flex-start;
+
+}
+
+.hero-btn {
+    display: flex;
+    width: 12rem;
+    height: 3rem;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: var(--Secondary-Color, #1B1919);
+    text-align: center;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 4.375rem;
+    border: none;
+    cursor: pointer;
+}
+
+.hero-btn:hover {
+    opacity: 0.9;
+}
