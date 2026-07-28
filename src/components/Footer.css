@@ -160,8 +160,16 @@
 }
 
 /* Link styling */
-.quick-links li,
-.other-links li,
+.quick-links li {
+    color: #ffffff;
+    font-family: "Inclusive Sans", sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
 .built-with li {
     color: #ffffff;
     font-family: "Inclusive Sans", sans-serif;
@@ -170,13 +178,20 @@
     cursor: pointer;
 }
 
-.quick-links li,
-.other-links li {
+.other-links li a{
+    color: #ffffff;
+    font-family: "Inclusive Sans", sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+    cursor: pointer;
     text-decoration: underline;
     text-underline-offset: 3px;
 }
 
-.quick-links li:hover,
+.quick-links li:hover {
+    opacity: 0.8;
+}
+
 .other-links li:hover {
     opacity: 0.8;
 }

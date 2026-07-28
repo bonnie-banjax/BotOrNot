@@ -1,6 +1,7 @@
 import RiskPanel from "./components/RiskPanel";
 import Telemetry from "./components/Telemetry";
 import BehaviorPanel from "./components/BehaviorPanel";
+import TelemetryPanel from "./components/TelemetryPanel";
 import useTelemetry from "./hooks/useTelemetry";
 import useBehaviorTracking from "./hooks/useBehaviorTracking";
 import Navbar from './components/Navbar.jsx';
@@ -14,49 +15,58 @@ function App() {
   const telemetry = useTelemetry();
   const behavior = useBehaviorTracking();
   const [activeTab, setActiveTab] = useState('overview');
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
 
-//For navigating to different areas of website
   const handleNavigation = (section) => {
     setActiveTab(section);
+    const element = document.getElementById(section);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
-  const element = document.getElementById(section);
-  if(element){
-    element.scrollIntoView({ behavior: 'smooth' });
-  }
-};
+  const openTelemetryPanel = () => setIsPanelOpen(true);
+  const closeTelemetryPanel = () => setIsPanelOpen(false);
 
   return (
-    <div className= "app-container">
-    <Navbar onNavigate={handleNavigation}/>
+    <div className="app-container">
+      <Navbar onNavigate={handleNavigation} onOpenTelemetry={openTelemetryPanel} />
 
-    <div id="overview">
-    <Hero onNavigate={handleNavigation} />
-    </div>
+      <div id="overview">
+        <Hero onNavigate={handleNavigation} onOpenTelemetry={openTelemetryPanel} />
+      </div>
 
-    <div id="about">
-    <Overview />
-    </div>
-    
-    <div id="playground">
-      <Playground onNavigate={handleNavigation}/>
-    </div>
+      <div id="about">
+        <Overview />
+      </div>
+      <div id="playground">
+        <Playground telemetry={telemetry} behavior={behavior} onNavigate={handleNavigation} />
+      </div>
 
-    <main>
-      <RiskPanel telemetry={telemetry} behavior={behavior} />
+      <main>
+        <RiskPanel telemetry={telemetry} behavior={behavior} />
 
-      <section className="details-section">
-        <div className="section-heading">
-          <span>Analysis</span>
-          <h2>BotOrNot Signals</h2>
-        </div>
+        <section className="details-section">
+          <div className="section-heading">
+            <span>Analysis</span>
+            <h2>BotOrNot Signals</h2>
+          </div>
 
-        <div className="details-grid">
-          <Telemetry telemetry={telemetry} />
-          <BehaviorPanel behavior={behavior} />
-        </div>
-      </section>
-    </main>
-    <Footer onNavigate={handleNavigation}/>
+          <div className="details-grid">
+            <Telemetry telemetry={telemetry} />
+            <BehaviorPanel behavior={behavior} />
+          </div>
+        </section>
+      </main>
+
+      <Footer onNavigate={handleNavigation} />
+
+      <TelemetryPanel
+        isOpen={isPanelOpen}
+        onClose={closeTelemetryPanel}
+        telemetry={telemetry}
+        behavior={behavior}
+      />
     </div>
   );
 }

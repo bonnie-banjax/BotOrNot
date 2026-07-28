@@ -1,7 +1,7 @@
 import './Navbar.css';
 import React from 'react';
 
-export default function Navbar({ onNavigate }) {
+export default function Navbar({ onNavigate, onOpenTelemetry }) {
     return ( //add the onNavigate function to App.jsx
         <nav className="navbar">
             <div className="logo" onClick={() => onNavigate?.('overview')}>
@@ -10,6 +10,9 @@ export default function Navbar({ onNavigate }) {
             </div>
 
             <ul className="nav-links">
+                <button className="telemetry-trigger-btn" onClick={onOpenTelemetry}>
+                    View Telemetry
+                </button>
                 <li>
                     <a href="#overview" onClick={(e) => { e.preventDefault(); onNavigate?.('overview'); }}>
                         Overview

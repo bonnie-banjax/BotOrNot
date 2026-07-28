@@ -49,7 +49,7 @@
     border: none;
     cursor: pointer;
     transition: opacity 0.2s ease;
-    margin: 1rem 20rem 0 0;
+    margin: 1rem -9rem 0 0;
 }
 
 .playground-btn:hover {
@@ -155,6 +155,7 @@
     align-items: center;
     gap: 0.5rem;
     color: #ffffff;
+    font-size: 38px;
 }
 
 .green-dot {
