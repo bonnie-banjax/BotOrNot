@@ -1,0 +1,20 @@
+# gives node/express code a runtime environment to run on any machine
+FROM node:20-alpine
+
+# sets /app inside the container as the default working folder for all future commands
+WORKDIR /app
+
+# copies these files into the container's /app directory
+COPY package*.json ./
+
+# runs npm install inside the container; --production skips downloading development-only tools
+# it installs al backend dependencies while keeping the container lightweight
+RUN npm install --production
+
+# copies remaining project source code into container
+COPY . .
+
+EXPOSE 5000
+
+# runs node server.js to start the node/express server
+CMD ["node", "server.js"]

@@ -1,0 +1,26 @@
+# tells Docker compose which file format specification version to use
+version: '3.8'
+
+# defines individual containers that make up the overall app
+services:
+
+backend:
+# tells Docker to build an image for the backend using the backend dockerfile
+build:
+context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb+srv://<your-mongo-uri>
+
+  frontend:
+  # tells docker to build the react frontend using the regular dockerfile(nginx)
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
