@@ -28,4 +28,4 @@ COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
 
 # tells the container to start the Nginx web server in the foreground when the container runs
-CMD ["nginx", "-g", "daemon off;"]git 
+CMD ["nginx", "-g", "daemon off;"]
