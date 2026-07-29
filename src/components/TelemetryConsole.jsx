@@ -9,7 +9,7 @@ export default function PseudoDevToolsPanel() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-<div className="rr-block">
+<div className="rr-block" style={rootOverlayStyle}>
   {/* Toggle Button (visible when panel is closed) */}
   {!isOpen && (
     <button
@@ -60,7 +60,27 @@ export default function PseudoDevToolsPanel() {
   );
 }
 
+
+// fff f
+
+// Add this style for the wrapper:
+const rootOverlayStyle = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: 0,
+  height: 0,
+  zIndex: 99999,
+  pointerEvents: "none" // Let page clicks pass through the zero-size overlay container
+};
+
+
+// fff f
+
 const toggleBtnStyle = {
+
+  pointerEvents: "auto", // Re-enable clicks
+
   position: "fixed",
   top: "16px",
   right: "16px",
@@ -86,6 +106,9 @@ const greenDotStyle = {
 
 // Helper function to handle the dynamic state-dependent transform
 const getDrawerStyle = (isOpen) => ({
+
+  pointerEvents: "auto", // Re-enable clicks
+
   position: "fixed",
   top: 0,
   right: 0,

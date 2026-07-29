@@ -13,7 +13,7 @@ import MainPageContent from "./components/MainApp";
 function App() {
 
   return (
-    <div style={{ minHeight: "100vh", position: "relative" }}>
+    <div>
       {/* Existing application page content (scrolls normally) */}
       <main style={{ padding: "24px" }}>
         <MainPageContent />
