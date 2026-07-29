@@ -1,7 +1,7 @@
 import React from 'react';
 import './Footer.css';
 
-const Footer = ({ onNavigate }) => {
+const Footer = ({ onNavigate, onOpenTelemetry }) => {
 
     return (
         <div className="footer-container">
@@ -18,7 +18,10 @@ const Footer = ({ onNavigate }) => {
                             <li onClick={() => onNavigate?.('overview')}> Home</li>
                             <li onClick={() => onNavigate?.('about')}>About</li>
                             <li onClick={() => onNavigate?.('playground')}> Playground</li>
-                            <li onClick={() => onNavigate?.('dashboard')}> Dashboard</li>
+                            <li onClick={() => {
+                                onNavigate?.('dashboard');
+                                onOpenTelemetry?.();
+                            }}> Dashboard</li>
                         </ul>
                     </div>
 

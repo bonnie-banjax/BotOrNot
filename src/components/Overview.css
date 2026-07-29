@@ -157,3 +157,92 @@
     list-style-type: decimal;
 
 }
+
+@media screen and (max-width: 768px) {
+    .overview-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1rem;
+        gap: 2rem;
+        overflow: hidden;
+    }
+
+    .about {
+        flex: 1 1 100%;
+        width: 100%;
+        min-width: 100%;
+        min-height: auto;
+        margin: 0;
+        padding: 1.5rem;
+
+    }
+
+    .how-it-works {
+        flex: 1 1 100%;
+        width: 100%;
+        min-width: 100%;
+        min-height: auto;
+        margin: 0;
+        padding: 1.5rem;
+        z-index: 0;
+    }
+
+    .features-container {
+        flex: 1 1 100%;
+        width: 100%;
+        min-width: 100%;
+        min-height: 590px;
+        margin: 0;
+        padding: 1.5rem;
+    }
+
+    .about h2 {
+        font-size: 32px;
+        margin: 1rem 0 1.5rem 0;
+    }
+
+    .how-it-works h2 {
+        font-size: 32px;
+        margin: 1rem 0 1.5rem 0;
+    }
+
+    .features-container h2 {
+        font-size: 32px;
+        margin: 2rem 0 2rem 0;
+    }
+
+    .about p {
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    .features-container ol {
+        font-size: 22px;
+        line-height: 1.6;
+    }
+
+    .step-row {
+        gap: 1rem;
+    }
+
+    .step-row p {
+        font-size: 20px;
+    }
+
+    .step-icon {
+        width: 70px;
+        height: 70px;
+    }
+
+    .step-divider {
+        margin: 1.25rem 0;
+    }
+
+    .about .cyberimg {
+        max-width: 350px;
+        width: 100%;
+        height: auto;
+        margin: 1.5rem auto 0 auto;
+        display: block;
+    }
+}

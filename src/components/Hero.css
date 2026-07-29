@@ -19,7 +19,7 @@
 
 .hero-banner-content {
     width: 100%;
-    max-width: 1250px;
+    max-width: 920px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -28,7 +28,7 @@
 .hero-banner-content h1 {
     color: #FFF;
     font-family: "Inclusive Sans";
-    font-size: 120px;
+    font-size: 70px;
     font-style: normal;
     font-weight: 700;
     line-height: 1.15;
@@ -43,7 +43,7 @@
 
     /* H3 */
     font-family: "Inclusive Sans";
-    font-size: 45px;
+    font-size: 38px;
     max-width: 100%;
     font-style: normal;
     font-weight: 400;
@@ -57,15 +57,15 @@
 
 .hero-btn {
     display: flex;
-    width: 12rem;
-    height: 3rem;
+    width: 10rem;
+    height: 2rem;
     justify-content: center;
     align-items: center;
     background-color: white;
     color: var(--Secondary-Color, #1B1919);
     text-align: center;
     font-family: Inter;
-    font-size: 30px;
+    font-size: 22px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -76,4 +76,31 @@
 
 .hero-btn:hover {
     opacity: 0.9;
+}
+
+@media screen and (max-width: 768px) {
+.hero-container{
+    width: 100%;
+    min-height: 700px;
+    padding: 2rem 1rem;
+}
+
+.hero-banner-content{
+    width:100%;
+    max-width: 430px;
+}
+
+.hero-banner-content h1{
+    font-size: 30px;
+}
+
+.hero-banner-content p{
+    font-size: 16px;
+}
+
+.hero-btn{
+    width:7em;
+    height:1.2rem;
+    font-size:12px;
+}
 }

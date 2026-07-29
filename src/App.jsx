@@ -10,6 +10,7 @@ import Overview from "./components/Overview.jsx";
 import React, { useState } from 'react';
 import Playground from "./components/Playground.jsx";
 import Footer from "./components/Footer.jsx";
+import './App.css';
 
 function App() {
   const telemetry = useTelemetry();
@@ -43,7 +44,7 @@ function App() {
         <Playground telemetry={telemetry} behavior={behavior} onNavigate={handleNavigation} />
       </div>
 
-      <Footer onNavigate={handleNavigation} />
+      <Footer onNavigate={handleNavigation} onOpenTelemetry={openTelemetryPanel}/>
 
       <TelemetryPanel
         isOpen={isPanelOpen}

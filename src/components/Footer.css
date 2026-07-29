@@ -22,8 +22,8 @@
 }
 
 .footer-icon {
-    width: 240px;
-    height: 240px;
+    width: 200px;
+    height: 200px;
     object-fit: contain;
 }
 
@@ -31,7 +31,7 @@
 .footer-logo span {
     color: white;
     font-family: "Intel One Mono";
-    font-size: 100px;
+    font-size: 70px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -166,7 +166,6 @@
     font-size: 30px;
     font-weight: 400;
     cursor: pointer;
-    text-decoration: underline;
     text-underline-offset: 3px;
 }
 
@@ -198,4 +197,51 @@
 
 .built-with li {
     text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+
+.footer-container{
+        padding: 3rem 6%;
+    }
+.footer-icon{
+    width: 60px;
+    height: 60px;
+}
+
+
+.footer-logo span{
+    font-size: 26px;
+}
+
+.quick-links h3{
+    font-size: 20px;
+}
+
+.quick-links li{
+    font-size: 12px;
+}
+
+.other-links h3{
+ font-size: 20px;
+}
+
+.other-links li a{
+    font-size: 14px;
+}
+
+.built-with h3{
+     font-size: 20px;
+}
+
+.built-with li{
+     font-size: 12px;
+}
+
+.footer-links-group{
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 400px;
+}
 }

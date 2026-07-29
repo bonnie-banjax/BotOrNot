@@ -1,0 +1,15 @@
+.app-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--Gradient-Backgroud, linear-gradient(180deg, #0B1453 21.67%, #101C68 32.87%, #121B57 45.02%, #131E66 49.17%, #151F65 57.68%, #05081C 80.62%));
+}
+
+@media screen and (max-width: 768px) {
+  .app-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+}
