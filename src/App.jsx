@@ -12,6 +12,12 @@ import Playground from "./components/Playground.jsx";
 import Footer from "./components/Footer.jsx";
 import './App.css';
 
+import MongoDumpViewer from "./components/MongoDumpViewer";
+import LivePlayer from './components/PlayerRRWeb';
+
+import TelemetryConsole from "./components/TelemetryConsole";
+import MainPageContent from "./components/MainApp";
+
 function App() {
   const telemetry = useTelemetry();
   const behavior = useBehaviorTracking();
@@ -44,7 +50,19 @@ function App() {
         <Playground telemetry={telemetry} behavior={behavior} onNavigate={handleNavigation} />
       </div>
 
-      <Footer onNavigate={handleNavigation} onOpenTelemetry={openTelemetryPanel}/>
+
+      <div style={{ minHeight: "100vh", position: "relative" }}>
+        {/* Existing application page content (scrolls normally) */}
+        <main style={{ padding: "24px" }}>
+          <MainPageContent />
+        </main>
+
+        {/* DevTools Drawer (fixed overlay) */}
+        <TelemetryConsole />
+      </div>
+
+
+      <Footer onNavigate={handleNavigation} onOpenTelemetry={openTelemetryPanel} />
 
       <TelemetryPanel
         isOpen={isPanelOpen}

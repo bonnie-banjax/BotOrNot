@@ -5,9 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="TRUST browser telemetry and explainable bot-risk dashboard" />
     <title>TRUST Signal Engine</title>
+
+
+
+    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+
+    <script type="module" src="/slop/tracker.js"></script>
+<!--     <script type="module" src="/slop/dispatcher.js"></script> -->
   </head>
   <body>
-    <div id="root"></div>
+<script> new VConsole(); </script>
+
+
+<div id="root"></div>
+
+    <div id="player"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
+
+<style>
+  /* Works as long as <div id="root"></div> has ZERO spaces or tags inside it */
+  #root:empty {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: repeating-linear-gradient(
+      45deg,
+      #121212,
+      #121212 20px,
+      #2a2a2a 20px,
+      #2a2a2a 40px
+    );
+  }
+
+  #root:empty::after {
+    content: "UNDER CONSTRUCTION\A React didn't load :(";
+    white-space: pre-wrap;
+    font-family: ui-monospace, monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    background: #DA0;
+    padding: 16px;
+    border-radius: 8px;
+    border: 3px solid #000;
+    box-shadow: 0 0 5px 2px #ffff00;
+    text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000;
+  }
+</style>
+
 </html>
+
