@@ -1,75 +1,104 @@
-import { useEffect, useRef } from 'react';
-import { record } from 'rrweb';
-import rrwebPlayer from 'rrweb-player';
-import 'rrweb-player/dist/style.css';
+import { useEffect, useRef } from "react";
+import rrwebPlayer from "rrweb-player";
+import "rrweb-player/dist/style.css";
+import { subscribeRRWeb } from "../lib/rrwebStore"; // Shared listener
 
 export default function LivePlayer() {
   const containerRef = useRef(null);
 
-  useEffect(() => {
-    if (!containerRef.current) return;
 
-    const PlayerComponent = rrwebPlayer.default || rrwebPlayer;
-    let playerInstance = null;
-    let resizeObserver = null;
-    const initialEvents = [];
+useEffect(() => {
+  if (!containerRef.current) {
+    console.warn("[LivePlayer] containerRef.current is null on mount!");
+    return;
+  }
 
-    // Helper to calculate responsive width and height (16:9 aspect ratio)
-    const getDimensions = () => {
-      const containerWidth = containerRef.current?.clientWidth || 800;
-      const calculatedHeight = Math.round((containerWidth * 9) / 16);
-      return { width: containerWidth, height: calculatedHeight };
-    };
+                                                                                // consol.log("[LivePlayer] Component mounted. Subscribing to rrwebStore...");
+  const PlayerComponent = rrwebPlayer.default || rrwebPlayer;
+  let playerInstance = null;
+  let resizeObserver = null;
+  const initialEvents = [];
 
-    // 1. Start recording first to capture initial events
-    const stopRecording = record({
-      emit(event) {
-        if (playerInstance) {
-          playerInstance.addEvent(event);
-        } else {
-          initialEvents.push(event);
+  const getDimensions = () => {
+    const containerWidth = containerRef.current?.clientWidth || 800;
+    const calculatedHeight = Math.round((containerWidth * 9) / 16);
+    return { width: containerWidth, height: calculatedHeight };
+  };
 
-          if (initialEvents.length >= 2 && containerRef.current) {
-            const { width, height } = getDimensions();
+  const unsubscribe = subscribeRRWeb((event) => {
+                                                                                // consol.log(`[LivePlayer] Received event type: ${event.type}`);
 
-            playerInstance = new PlayerComponent({
-              target: containerRef.current,
-              props: {
-                events: initialEvents,
-                width,
-                height,
-                liveMode: true,
-                autoPlay: false,
-              },
-            });
+    if (playerInstance) {
+                                                                                // consol.log(`[LivePlayer] Stream active -> Calling playerInstance.addEvent(type: ${event.type})`);
+      playerInstance.addEvent(event);
+    } else {
+      initialEvents.push(event);
 
-            // 2. Observe container resizes and update player dimensions dynamically
-            resizeObserver = new ResizeObserver(() => {
-              if (playerInstance && containerRef.current) {
-                const updated = getDimensions();
-                playerInstance.$set({
-                  width: updated.width,
-                  height: updated.height,
-                });
-              }
-            });
+      const hasMeta = initialEvents.some((e) => e.type === 4);
+      const hasFullSnapshot = initialEvents.some((e) => e.type === 2);
 
-            resizeObserver.observe(containerRef.current);
-          }
+                                                                                // consol.log(`[LivePlayer Buffer] Events stored: ${initialEvents.length} | Has Meta(4): ${hasMeta} | Has FullSnapshot(2): ${hasFullSnapshot}`);
+
+      if (hasMeta && hasFullSnapshot && containerRef.current) {
+                                                                                // consol.log("[LivePlayer] Both Meta (4) & FullSnapshot (2) present! Bootstrapping player...");
+
+        // Ensure Meta event (4) comes first
+        initialEvents.sort((a, b) => (a.type === 4 ? -1 : b.type === 4 ? 1 : 0));
+
+        try {
+          const { width, height } = getDimensions();
+
+          // Clear any lingering DOM elements before instantiating
+                                                                                // consol.log("[LivePlayer] Clearing target DOM container before player creation.");
+          containerRef.current.innerHTML = "";
+
+          playerInstance = new PlayerComponent({
+            target: containerRef.current,
+            props: {
+              events: initialEvents,
+              width,
+              height,
+              liveMode: true,
+              autoPlay: true,
+            },
+          });
+                                                                                // consol.log("[LivePlayer] Player successfully instantiated!");
+        } catch (err) {
+          console.error("[LivePlayer] Failed to instantiate player:", err);
         }
-      },
-      checkoutEveryNms: 10000,
-    });
 
-    // 3. Clean up player, observer, and recorder
-    return () => {
-      if (resizeObserver) resizeObserver.disconnect();
-      if (stopRecording) stopRecording();
-      if (playerInstance?.$destroy) {
-        playerInstance.$destroy();
+        resizeObserver = new ResizeObserver(() => {
+          if (playerInstance && containerRef.current) {
+            const updated = getDimensions();
+                                                                                // consol.log(`[LivePlayer ] Container resized -> updating player bounds: ${updated.width}x${updated.height}`);
+            playerInstance.$set({
+              width: updated.width,
+              height: updated.height,
+            });
+          }
+        });
+        resizeObserver.observe(containerRef.current);
       }
-    };
-  }, []);
+    }
+  });
+
+  return () => {
+                                                                                // consol.log("[LivePlayer] Unmounting component and running cleanup...");
+    unsubscribe();
+    if (resizeObserver) {
+                                                                                // consol.log("[LivePlayer] Disconnecting ResizeObserver.");
+      resizeObserver.disconnect();
+    }
+    if (playerInstance?.$destroy) {
+                                                                                // consol.log("[LivePlayer] Destroying playerInstance.");
+      playerInstance.$destroy();
+    }
+    if (containerRef.current) {
+                                                                                // consol.log("[LivePlayer] Wiping container innerHTML on cleanup.");
+      containerRef.current.innerHTML = "";
+    }
+  };
+}, []);
 
   return (
 <div className="rr-block" style={inline_style_1}>
@@ -98,6 +127,7 @@ const inline_style_1 = {
 
 const inline_style_2 = {
   width: "100%",
+  minHeight: "400px",
   overflow: "hidden", // Prevents the player canvas/iframe from bleeding past borders
   display: "flex",
   justifyContent: "center"

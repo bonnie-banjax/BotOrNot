@@ -4,7 +4,6 @@ import BehaviorPanel from "./BehaviorPanel";
 import useTelemetry from "../hooks/useTelemetry";
 import useBehaviorTracking from "../hooks/useBehaviorTracking";
 
-
 function MainApp() {
   const telemetry = useTelemetry();
   const behavior = useBehaviorTracking();

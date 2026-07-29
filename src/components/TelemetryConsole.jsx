@@ -1,6 +1,9 @@
 import { useState } from "react";
 import LivePlayer from "./PlayerRRWeb"; // Adjust import path
 import MongoDumpViewer from "./MongoDumpViewer"; // Adjust import path
+import { initTelemetry, SESSION_UUID } from '../slop/dispatcher';
+
+initTelemetry();
 
 export default function PseudoDevToolsPanel() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +31,7 @@ export default function PseudoDevToolsPanel() {
         <span style={headerTitleStyle}>
           Live Telemetry & Recording
         </span>
+        <span> {SESSION_UUID} </span>
       </div>
 
       <button
