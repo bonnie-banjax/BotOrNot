@@ -1,0 +1,78 @@
+.risk-bar {
+  --progress: 0deg;
+  --accent: #22c55e;
+  --surface: #1B2A8B;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+
+  font-family: "Inclusive Sans", sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.risk-bar--warn { --accent: #f5b301; }
+.risk-bar--bot  { --accent: #ef4444; }
+
+.risk-bar__ring {
+  display: grid;
+  place-items: center;
+  width: 260px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--accent) var(--progress),
+    rgba(255, 255, 255, 0.15) var(--progress)
+  );
+}
+
+.risk-bar__inner {
+  display: grid;
+  place-items: center;
+  width: 78%;
+  height: 78%;
+  border-radius: 50%;
+  background: var(--surface);
+}
+
+.risk-bar__number {
+  font-size: 80px;
+  line-height: 1;
+}
+
+.risk-bar__unit {
+  font-size: 22px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.risk-bar__caption {
+  font-size: 24px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid var(--accent);
+}
+
+.verdict__dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.verdict__label {
+  font-size: 32px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
