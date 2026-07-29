@@ -10,16 +10,19 @@ import {
   getSpeechVoices,
 } from "./snitches.js";
 
+import { record } from "rrweb";
+
 /**
  * Higher-Order Telemetry Pipeline Factory
  * Standardizes lifecycle listeners, payload formatting, serialization, and
  *  dispatch across decoupled telemetry stream providers.
  */
 
-function createTelemetryDispatcher({ endpoint, session_UUID, provider }) {
+function createTelemetryDispatcher({ endpoint, session_UUID, provider, interval }) {
+
   function send(data) {
     const dump = {
-      session_UUID, // Included across all payload streams
+      session_UUID,
       timestamp: new Date().toISOString(),
       location: {
         href: window.location.href,
@@ -29,18 +32,37 @@ function createTelemetryDispatcher({ endpoint, session_UUID, provider }) {
       payload: data,
     };
 
-    const payload = JSON.stringify(dump);
+    const payloadString = JSON.stringify(dump);
 
+    // Use standard Blob with text/plain (CORS-safelisted type)
+    const blob = new Blob([payloadString], { type: "text/plain;charset=UTF-8" });
+
+    let sent = false;
+
+    // 1. Primary Attempt: sendBeacon
     if (navigator.sendBeacon) {
-      const blob = new Blob([payload], { type: "text/plain" });
-      navigator.sendBeacon(endpoint, blob);
-    } else {
+      try {
+        sent = navigator.sendBeacon(endpoint, blob);
+      } catch (e) {
+        sent = false;
+      }
+    }
+
+    // 2. Fallback Attempt: fetch with keepalive
+    if (!sent) {
+      // keepalive caps at ~64KB. If over 60KB, strip keepalive to prevent hard NetworkError
+      const isLargePayload = payloadString.length > 60000;
+
       fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "text/plain" },
-        body: payload,
-        keepalive: true,
-      }).catch((err) => console.error("[SLOP] Transmission failed:", err));
+        body: payloadString,
+        keepalive: !isLargePayload,
+        credentials: "omit",
+        mode: "cors",
+      }).catch((err) => {
+        console.error(`[SLOP] Transmission failed [${endpoint}]:`, err);
+      });
     }
   }
 
@@ -56,6 +78,15 @@ function createTelemetryDispatcher({ endpoint, session_UUID, provider }) {
     }
   }
 
+  // function attach() {
+  //   window.addEventListener("load", flush);
+  //   window.addEventListener("visibilitychange", () => {
+  //     if (document.visibilityState === "hidden") {
+  //       flush();
+  //     }
+  //   });
+  // }
+
   function attach() {
     window.addEventListener("load", flush);
     window.addEventListener("visibilitychange", () => {
@@ -63,6 +94,9 @@ function createTelemetryDispatcher({ endpoint, session_UUID, provider }) {
         flush();
       }
     });
+
+    // Continuously flush buffered rrweb mutations every N seconds
+    if (interval===true) setInterval(flush, 1000);
   }
 
   return { flush, attach };
@@ -91,13 +125,22 @@ function createInteractionStream() {
 function createRRWebStream() {
   const rrwebEvents = [];
 
-  if (window.rrweb && typeof window.rrweb.record === "function") {
-    window.rrweb.record({
-      emit(event) {
-        rrwebEvents.push(event);
-      },
-      maskAllInputs: false,
-    });
+  // Prefer ES module import, fall back to global window.rrweb
+  const recordFn = typeof record === "function" ? record : window.rrweb?.record;
+
+  if (typeof recordFn === "function") {
+    try {
+      recordFn({
+        emit(event) {
+          rrwebEvents.push(event);
+        },
+        maskAllInputs: false,
+      });
+    } catch (err) {
+      console.error("[SLOP] Failed to initialize rrweb recording:", err);
+    }
+  } else {
+    console.warn("[SLOP] rrweb record function is unavailable.");
   }
 
   return function collectSessionReplay() {
@@ -166,7 +209,7 @@ function FingerprintJsStream() {
     const nav = window.navigator;
     const screenInfo = window.screen;
 
-    let fingerprintJS = null;
+    let finger_print_JS = null;
     if (window.FingerprintJS) {
       try {
         const fp = await window.FingerprintJS.load();
@@ -188,36 +231,54 @@ function FingerprintJsStream() {
 // INITIALIZATION
 // ============================================================================
 
-(function () {
+// Replace the (function () { ... })() IIFE with this:
+
+let isInitialized = false;
+
+  export const SESSION_UUID =
+    typeof crypto !== "undefined" && crypto.randomUUID
+      ? crypto.randomUUID()
+      : 'uuid-' + Math.random().toString(36).substring(2, 15);
+
+export function initTelemetry() {
+  // Prevent duplicate listener attachments in React Strict Mode / HMR
+  if (isInitialized || typeof window === "undefined") return;
+  isInitialized = true;
+
   const HOSTNAME = window.location.hostname;
   const API_BASE = `http://${HOSTNAME}:5000`;
 
-  // Single Session UUID generated once per page context
-  const SESSION_UUID = crypto.randomUUID();
 
-  // Stream 1: Interactions
   const interactionTelemetry = createTelemetryDispatcher({
-    endpoint: `${API_BASE}/api/telemetry/`,
+    endpoint: `${API_BASE}/api/telemetry`,
     session_UUID: SESSION_UUID,
     provider: createInteractionStream(),
+    interval: false,
   });
 
-  // Stream 2: Session Replay (rrweb)
   const rrwebTelemetry = createTelemetryDispatcher({
-    endpoint: `${API_BASE}/api/telemetry/`,
+    endpoint: `${API_BASE}/api/telemetry/rrweb/stream`,
     session_UUID: SESSION_UUID,
     provider: createRRWebStream(),
+    interval: true,
   });
 
-  // Stream 3: Device / Browser Fingerprint
-  const fingerprintTelemetry = createTelemetryDispatcher({
-    endpoint: `${API_BASE}/api/telemetry/`,
+  const handRolledTelemetry = createTelemetryDispatcher({
+    endpoint: `${API_BASE}/api/telemetry`,
     session_UUID: SESSION_UUID,
     provider: createHandrolledStream(),
+    interval: false,
   });
 
-  // Attach lifecycle listeners for all individual streams
-  // interactionTelemetry.attach();
-  // rrwebTelemetry.attach();
+  const fingerprintTelemetry = createTelemetryDispatcher({
+    endpoint: `${API_BASE}/api/telemetry`,
+    session_UUID: SESSION_UUID,
+    provider: FingerprintJsStream(), // Corrected from duplicate createHandrolledStream
+    interval: false,
+  });
+
+  interactionTelemetry.attach();
+  rrwebTelemetry.attach();
+  handRolledTelemetry.attach();
   fingerprintTelemetry.attach();
-})();
+}
