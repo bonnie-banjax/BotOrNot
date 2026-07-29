@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import calculateRisk from "../utils/calculateRisk";
 import './Playground.css';
+import RiskBar from './RiskBar';
 
 export default function Playground({ telemetry, behavior, onNavigate }) {
     const [message, setMessage] = useState('');
@@ -34,10 +35,7 @@ export default function Playground({ telemetry, behavior, onNavigate }) {
                 </div>
                 <hr className="divider" />
                 <div className="risk-score-display">
-                    <span> CURRENT RISK SCORE </span>
-                </div>
-                <div className="status-badge">
-                    [{score}/100] <span> {classification.toUpperCase()}</span>
+                    <RiskBar score={score} classification={classification} />
                 </div>
             </div>
         </div>
