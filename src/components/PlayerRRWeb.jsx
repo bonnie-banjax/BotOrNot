@@ -59,7 +59,7 @@ useEffect(() => {
               width,
               height,
               liveMode: true,
-              autoPlay: true,
+              autoPlay: false,
             },
           });
                                                                                 // consol.log("[LivePlayer] Player successfully instantiated!");
@@ -103,54 +103,132 @@ useEffect(() => {
   return (
 <div className="rr-block" style={inline_style_1}>
   <style>{literal_inline_CSS}</style>
-  <h3 style={inline_style_3}>Live Telemetry Feed</h3>
+  <h3 style={inline_style_3}>DOM Mutation Replayer</h3>
   <div ref={containerRef} style={inline_style_2} />
 </div>
   );
 }
-
 const inline_style_1 = {
-  background: "#282c34",
+  background: "#08103A", // Dark blue slate container
   color: "#abb2bf",
   padding: "12px",
   borderRadius: "8px",
   fontFamily: "monospace",
   fontSize: "0.85rem",
-  border: "1px solid #3e4451",
+  lineHeight: "1.4",
+  border: "1px solid rgba(255, 255, 255, 0.15)",
   width: "100%",
   boxSizing: "border-box",
-  // Add flex column layout to force child elements into normal flow
   display: "flex",
   flexDirection: "column",
-  gap: "12px",
-}
+  gap: "12px"
+};
 
 const inline_style_2 = {
   width: "100%",
   minHeight: "400px",
-  overflow: "hidden", // Prevents the player canvas/iframe from bleeding past borders
+  overflow: "hidden",
   display: "flex",
-  justifyContent: "center"
-}
-
-const inline_style_3 = {
-  margin: 0
+  justifyContent: "center",
+  borderRadius: "6px",
+  background: "#050B28"
 };
 
+const inline_style_3 = {
+  margin: 0,
+  fontFamily: "monospace",
+  fontSize: "0.85rem",
+  lineHeight: "1.2",
+  fontWeight: "bold",
+  color: "#ffffff",
+  textTransform: "none",
+  letterSpacing: "normal"
+};
+
+// CSS overrides that force reset font sizes/margins inside rrweb's internal DOM
 const literal_inline_CSS = `
+  /* Master Reset for RRWeb internal spans, divs, buttons, and text */
+  .rr-player,
+  .rr-player *,
+  .rr-player span,
+  .rr-player div,
+  .rr-player button {
+    font-family: monospace !important;
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+  }
+
+  /* Core player background */
   .rr-player {
-    background-color: #282c34 !important;
+    background-color: #050B28 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
   }
-  .rr-player .rr-controller {
-    background-color: #21252b !important;
-    color: #abb2bf !important;
-    border-top: 1px solid #3e4451 !important;
-  }
-  .rr-player .rr-controller button,
-  .rr-player .rr-timeline {
-    filter: invert(0.85) hue-rotate(180deg);
-  }
+
   .rr-player .rr-player__frame {
-    background-color: #1e2227 !important;
+    background-color: #050B28 !important;
+  }
+
+  /* Control bar footer */
+  .rr-player .rr-controller {
+    background-color: #08103A !important;
+    color: #abb2bf !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+    padding: 6px 12px !important;
+    height: auto !important;
+  }
+
+  /* Control buttons */
+  .rr-player .rr-controller button {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+    font-size: 11px !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+  }
+
+  .rr-player .rr-controller button:hover {
+    opacity: 0.8 !important;
+  }
+
+  /* Timeline container reset */
+  .rr-player .rr-timeline {
+    height: 8px !important;
+    background-color: #050B28 !important;
+    border-radius: 4px !important;
+    margin: 0 10px !important;
+    position: relative !important;
+    cursor: pointer !important;
+  }
+
+  /* Played progress bar track */
+  .rr-player .rr-timeline__finished {
+    background-color: #61afef !important;
+    border-radius: 4px !important;
+    height: 100% !important;
+  }
+
+  /* Scrubber handle (knob) */
+  .rr-player .rr-timeline__handler {
+    width: 14px !important;
+    height: 14px !important;
+    border-radius: 50% !important;
+    background-color: #98c379 !important; /* Green dot theme color */
+    border: 2px solid #ffffff !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.5) !important;
+    cursor: grab !important;
+  }
+
+  /* Time display text */
+  .rr-player .rr-controller span {
+    font-size: 11px !important;
+    color: #abb2bf !important;
+    margin: 0 4px !important;
   }
 `;

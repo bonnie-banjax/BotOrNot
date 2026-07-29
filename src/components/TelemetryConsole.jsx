@@ -31,7 +31,7 @@ export default function PseudoDevToolsPanel() {
         <span style={headerTitleStyle}>
           Live Telemetry & Recording
         </span>
-        <span> {SESSION_UUID} </span>
+        <span style={badgeStyle}> {SESSION_UUID} </span>
       </div>
 
       <button
@@ -60,68 +60,56 @@ export default function PseudoDevToolsPanel() {
   );
 }
 
-
-// fff f
-
-// Add this style for the wrapper:
+// Neutralizes outer parent CSS pollution by explicitly overriding typography/layout resets
 const rootOverlayStyle = {
-  position: "fixed",
-  top: 0,
-  left: 0,
-  width: 0,
-  height: 0,
-  zIndex: 99999,
-  pointerEvents: "none" // Let page clicks pass through the zero-size overlay container
+  width: "100%",
+  boxSizing: "border-box",
+  fontFamily: "monospace",
+  fontSize: "14px",
+  lineHeight: "1.4",
+  textTransform: "none",
+  margin: "16px 0"
 };
 
-
-// fff f
-
 const toggleBtnStyle = {
-
-  pointerEvents: "auto", // Re-enable clicks
-
-  position: "fixed",
-  top: "16px",
-  right: "16px",
-  zIndex: 9998,
-  backgroundColor: "#1e2227",
+  position: "relative",
+  width: "100%",
+  backgroundColor: "#08103A", // Darker blue tint matching #0D1B5E panel theme
   color: "#61afef",
-  border: "1px solid #3e4451",
+  border: "1px solid rgba(255, 255, 255, 0.2)",
   borderRadius: "8px",
-  padding: "8px 16px",
+  padding: "12px 16px",
   fontFamily: "monospace",
   fontSize: "0.85rem",
   fontWeight: "bold",
+  textTransform: "none",
+  letterSpacing: "normal",
   cursor: "pointer",
-  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
+  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
   display: "flex",
   alignItems: "center",
-  gap: "8px"
+  justifyContent: "center",
+  gap: "8px",
+  boxSizing: "border-box"
 };
 
 const greenDotStyle = {
-  color: "#98c379"
+  color: "#98c379",
+  fontSize: "0.85rem",
+  lineHeight: "1"
 };
 
-// Helper function to handle the dynamic state-dependent transform
 const getDrawerStyle = (isOpen) => ({
-
-  pointerEvents: "auto", // Re-enable clicks
-
-  position: "fixed",
-  top: 0,
-  right: 0,
-  width: "820px",
-  maxWidth: "100vw",
-  height: "100vh",
-  backgroundColor: "#181a1f",
+  width: "100%",
+  maxHeight: isOpen ? "2000px" : "0px",
+  opacity: isOpen ? 1 : 0,
+  overflow: "hidden",
+  backgroundColor: "#08103A",
   color: "#abb2bf",
-  borderLeft: "1px solid #282c34",
-  boxShadow: "-8px 0 24px rgba(0, 0, 0, 0.5)",
-  zIndex: 9999,
-  transform: isOpen ? "translateX(0)" : "translateX(100%)",
-  transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+  border: isOpen ? "1px solid rgba(255, 255, 255, 0.2)" : "none",
+  borderRadius: "8px",
+  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+  transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
   display: "flex",
   flexDirection: "column",
   boxSizing: "border-box"
@@ -129,12 +117,13 @@ const getDrawerStyle = (isOpen) => ({
 
 const drawerHeaderStyle = {
   padding: "12px 16px",
-  backgroundColor: "#21252b",
-  borderBottom: "1px solid #282c34",
+  backgroundColor: "#050B28",
+  borderBottom: "1px solid rgba(255, 255, 255, 0.15)",
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  flexShrink: 0
+  flexShrink: 0,
+  boxSizing: "border-box"
 };
 
 const headerLeftStyle = {
@@ -145,23 +134,30 @@ const headerLeftStyle = {
 
 const badgeStyle = {
   fontSize: "0.75rem",
+  lineHeight: "1.2",
   padding: "2px 6px",
   borderRadius: "4px",
-  background: "#2c313a",
+  background: "#122373",
   color: "#e06c75",
-  fontFamily: "monospace"
+  fontFamily: "monospace",
+  textTransform: "none",
+  letterSpacing: "normal"
 };
 
 const headerTitleStyle = {
   fontFamily: "monospace",
   fontSize: "0.85rem",
-  fontWeight: "bold"
+  lineHeight: "1.2",
+  fontWeight: "bold",
+  color: "#ffffff",
+  textTransform: "none",
+  letterSpacing: "normal"
 };
 
 const closeBtnStyle = {
   background: "none",
   border: "none",
-  color: "#5c6370",
+  color: "rgba(255, 255, 255, 0.6)",
   fontSize: "1.2rem",
   cursor: "pointer",
   padding: "0 4px",
@@ -174,12 +170,14 @@ const drawerContentStyle = {
   padding: "16px",
   display: "flex",
   flexDirection: "column",
-  gap: "20px"
+  gap: "16px",
+  boxSizing: "border-box"
 };
 
 const cardSectionStyle = {
-  background: "#21252b",
+  background: "#0D1B5E",
   borderRadius: "8px",
   padding: "12px",
-  border: "1px solid #282c34"
+  border: "1px solid rgba(255, 255, 255, 0.15)",
+  boxSizing: "border-box"
 };

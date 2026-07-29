@@ -50,18 +50,6 @@ function App() {
         <Playground telemetry={telemetry} behavior={behavior} onNavigate={handleNavigation} />
       </div>
 
-
-      <div style={{ minHeight: "100vh", position: "relative" }}>
-        {/* Existing application page content (scrolls normally) */}
-        <main style={{ padding: "24px" }}>
-          <MainPageContent />
-        </main>
-
-        {/* DevTools Drawer (fixed overlay) */}
-        <TelemetryConsole />
-      </div>
-
-
       <Footer onNavigate={handleNavigation} onOpenTelemetry={openTelemetryPanel} />
 
       <TelemetryPanel
@@ -70,6 +58,7 @@ function App() {
         telemetry={telemetry}
         behavior={behavior}
       />
+
     </div>
   );
 }

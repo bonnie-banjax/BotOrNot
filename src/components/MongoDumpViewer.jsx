@@ -49,7 +49,6 @@ return (
   <section style={inlineStyle_3}>
     <div style={inlineStyle_4}>
       <div>
-        <span className="panel-number">03</span>
         <h3>MongoDB Telemetry Dumps</h3>
       </div>
 
@@ -93,7 +92,7 @@ return (
         return (
           <details key={dump._id} style={inlineStyle_2}>
             <summary style={inlineStyle_10}>
-              <span>
+              <span style={summaryHeaderSpanStyle}>
                 [{dump.serverMetadata?.receivedAt || dump.timestamp}] IP: {dump.serverMetadata?.clientIp || "Unknown"}
               </span>
               <div style={inlineStyle_11}>
@@ -115,43 +114,73 @@ return (
 );
 }
 
+const summaryHeaderSpanStyle = {
+  fontFamily: "monospace",
+  fontSize: "0.85rem",
+  lineHeight: "1.4",
+  fontWeight: "bold",
+  color: "#61afef",
+  textTransform: "none",
+  letterSpacing: "normal",
+  display: "block"
+};
+
 const pillStyle = {
-  color: "#cfc0d0",
-  background: "#0f0f0f",
+  color: "#a0a8c0",
+  background: "#050B28",
   padding: "2px 8px",
   borderRadius: "6px",
+  fontFamily: "monospace",
   fontSize: "0.75rem",
+  lineHeight: "1.2",
+  textTransform: "none",
+  letterSpacing: "normal",
+  border: "1px solid rgba(255, 255, 255, 0.1)"
 };
 
 const inlineStyle_1 = {
   marginTop: "10px",
   overflowX: "auto",
   whiteSpace: "pre-wrap",
-  background: "#1e1e1e",
+  background: "#050B28",
   color: "#d4d4d4",
   padding: "12px",
   borderRadius: "8px",
+  fontFamily: "monospace",
+  fontSize: "0.8rem",
+  lineHeight: "1.4",
+  textTransform: "none",
+  border: "1px solid rgba(255, 255, 255, 0.1)"
 };
 
 const inlineStyle_2 = {
-  background: "#282c34", // Charcoal slate item background
+  background: "#08103A", // Dark slate-blue item card
   color: "#abb2bf",
   padding: "12px",
   borderRadius: "8px",
   fontFamily: "monospace",
   fontSize: "0.85rem",
-  border: "1px solid #3e4451",
-}
+  lineHeight: "1.4",
+  textTransform: "none",
+  border: "1px solid rgba(255, 255, 255, 0.15)",
+  boxSizing: "border-box"
+};
 
 const inlineStyle_3 = {
   gridColumn: "1 / -1",
-  marginTop: "24px"
+  marginTop: "8px",
+  width: "100%",
+  boxSizing: "border-box"
 };
 
 const inlineStyle_4 = {
   display: "flex",
   justifyContent: "space-between",
-  alignItems: "center"
+  alignItems: "center",
+  color: "#ffffff",
+  fontFamily: "monospace",
+  fontSize: "0.85rem",
+  textTransform: "none"
 };
 
 const inlineStyle_5 = {
@@ -164,16 +193,37 @@ const inlineStyle_6 = {
   display: "flex",
   alignItems: "center",
   gap: "6px",
+  fontFamily: "monospace",
   fontSize: "0.85rem",
+  lineHeight: "1.2",
+  color: "#ffffff",
+  textTransform: "none",
+  letterSpacing: "normal",
   cursor: "pointer"
 };
 
 const inlineStyle_7 = {
-  background: "#0f0f0f"
+  background: "#050B28",
+  color: "#61afef",
+  border: "1px solid rgba(255, 255, 255, 0.2)",
+  borderRadius: "6px",
+  padding: "6px 12px",
+  fontFamily: "monospace",
+  fontSize: "0.8rem",
+  lineHeight: "1.2",
+  textTransform: "none",
+  letterSpacing: "normal",
+  cursor: "pointer"
 };
 
 const inlineStyle_8 = {
-  marginTop: "12px"
+  marginTop: "12px",
+  fontFamily: "monospace",
+  fontSize: "0.85rem",
+  lineHeight: "1.4",
+  color: "#a0a8c0",
+  textTransform: "none",
+  letterSpacing: "normal"
 };
 
 const inlineStyle_9 = {
@@ -185,7 +235,12 @@ const inlineStyle_9 = {
 
 const inlineStyle_10 = {
   cursor: "pointer",
-  fontWeight: "bold"
+  fontWeight: "bold",
+  color: "#ffffff",
+  fontFamily: "monospace",
+  fontSize: "0.85rem",
+  lineHeight: "1.4",
+  textTransform: "none"
 };
 
 const inlineStyle_11 = {

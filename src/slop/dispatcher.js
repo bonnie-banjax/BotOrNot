@@ -273,7 +273,7 @@ export function initTelemetry() {
   const fingerprintTelemetry = createTelemetryDispatcher({
     endpoint: `${API_BASE}/api/telemetry`,
     session_UUID: SESSION_UUID,
-    provider: FingerprintJsStream(), // Corrected from duplicate createHandrolledStream
+    provider: FingerprintJsStream(),
     interval: false,
   });
 

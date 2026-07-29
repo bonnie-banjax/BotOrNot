@@ -1,5 +1,6 @@
 import React from "react";
 import "./TelemetryPanel.css";
+import TelemetryConsole from "./TelemetryConsole"
 
 export default function TelemetryPanel({ isOpen, onClose, telemetry, behavior }) {
   return (
@@ -19,6 +20,7 @@ export default function TelemetryPanel({ isOpen, onClose, telemetry, behavior })
               This is completely normal for websites to collect
             </p>
           </div>
+
           <button
             className="telemetry-close-btn"
             onClick={onClose}
@@ -27,7 +29,9 @@ export default function TelemetryPanel({ isOpen, onClose, telemetry, behavior })
             ×
           </button>
         </div>
-
+        <div>
+          <TelemetryConsole />
+        </div>
         <div className="telemetry-panel-body">
           <section className="telemetry-group">
             <h3>Device Data</h3>
@@ -79,6 +83,7 @@ export default function TelemetryPanel({ isOpen, onClose, telemetry, behavior })
             </ul>
           </section>
         </div>
+
       </aside>
     </>
   );
